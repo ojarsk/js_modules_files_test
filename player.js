@@ -10,6 +10,7 @@ export class Player {
 
     }
     draw(context) {
+        context.fillStyle = "black";
         context.fillRect( this.x, this.y, this.w, this.h );
     }
 }
