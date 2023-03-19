@@ -1,4 +1,4 @@
-# js_modules_test
+# JS modules and files test
 
 Ideas:
 
