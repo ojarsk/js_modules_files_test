@@ -7,7 +7,7 @@ export class Player {
         this.h = h;
     }
     update() {
-
+        this.x += 0.1;
     }
     draw(context) {
         context.fillStyle = "black";
