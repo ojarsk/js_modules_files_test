@@ -24,6 +24,7 @@ class Game {
         this.height = canvas.height;
         this.player = new Player(this, 10, 10, 20, 20);
         this.enemies = [];
+        this.bullets = [];
         //this.enemies.push( new Enemy1(this) );
         for( let i=0; i<3; i++ )
             this.enemies.push( this.newEnemy() );
@@ -46,11 +47,45 @@ class Game {
                 this.enemies.push(  this.newEnemy()  );
             }
         }
+        for(let i=this.bullets.length-1; i>=0; i--) {
+            this.bullets[i].update();
+            const pos = this.bullets[i].getPos();
+            if( pos.x < 0 || pos.x > this.width ) {
+                this.bullets.splice(i, 1);
+            }
+        }
     }
     draw(context) {
         this.player.draw(context);
         for(let i=this.enemies.length-1; i>=0; i--) {
             this.enemies[i].draw(context);
         }
+        for(let i=this.bullets.length-1; i>=0; i--) {
+            this.bullets[i].draw(context);
+        }
+        //console.log( this.bullets.length );
+    }
+    addBullet( x, y, vx, vy ) {
+        this.bullets.push( new Bullet(x, y, vx, vy) );
+    }
+}
+
+class Bullet {
+    constructor(x, y, vx, vy) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+    }
+    getPos() {
+        return { x: this.x, y: this.y };
+    }
+   update() {
+        this.x += this.vx;
+        this.y += this.vy;
+    }
+    draw(context) {
+        context.fillStyle = "grey";
+        context.fillRect( this.x, this.y, 5, 5 );
     }
 }
